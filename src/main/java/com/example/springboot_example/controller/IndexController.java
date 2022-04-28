@@ -1,6 +1,7 @@
 package com.example.springboot_example.controller;
 
 
+import com.example.springboot_example.config.auth.LoginUser;
 import com.example.springboot_example.config.auth.dto.SessionUser;
 import com.example.springboot_example.dto.PostsResponseDto;
 import com.example.springboot_example.service.PostsService;
@@ -19,18 +20,9 @@ public class IndexController {
     private final PostsService postsService;
     private final HttpSession httpSession;
 
-    //    @GetMapping("/")
-//    public String index(Model model, @LoginUser SessionUser user) {
-//        model.addAttribute("posts", postsService.findAllDesc());
-//        if (user != null) {
-//            model.addAttribute("userName", user.getName());
-//        }
-//        return "index";
-//    }
-    @GetMapping("/")
-    public String index(Model model) {
+        @GetMapping("/")
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if (user != null) {
             model.addAttribute("userName", user.getName());
         }
